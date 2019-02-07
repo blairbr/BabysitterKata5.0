@@ -56,14 +56,20 @@ namespace BabysitterKata5._0
 
 			// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
 
-			if (startTime < 6 && endTime >= 6)
+			if (startTime >= 6) //if start time is at or after 11pm
+			{
+				numberOfHoursAtTwentyDollarRate = endTime - startTime;
+			}
+
+			if (startTime < 6 && endTime <= 6) //if start time is before 11pm and end time before or at 11pm
 			{
 				numberOfHoursAtFifteenDollarRate = endTime - startTime;
 			}
 
-			if (startTime >= 6)
+			if (startTime < 6 && endTime > 6) //if start time is before 11pm and end time after 11pm
 			{
-				numberOfHoursAtTwentyDollarRate = endTime - startTime;
+				numberOfHoursAtFifteenDollarRate = 6 - startTime;
+				numberOfHoursAtTwentyDollarRate = endTime - 6;
 			}
 
 			paymentForFamilyA = ((numberOfHoursAtFifteenDollarRate*15) + (numberOfHoursAtTwentyDollarRate*20));

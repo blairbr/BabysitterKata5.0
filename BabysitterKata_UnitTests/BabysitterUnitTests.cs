@@ -81,5 +81,16 @@ namespace BabysitterKata_UnitTests
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
+
+		[TestMethod]
+		public void BabysitterWorksForFamily_A_From10pmTo12amAndEarns15DollarsAnHourForOneHourAndTwentyDollarsAnHourForTheSecondHour()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 35;
+			//Act
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(5, 7, Babysitter.Family.A);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
 	}
 }
