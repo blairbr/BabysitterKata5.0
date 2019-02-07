@@ -53,23 +53,24 @@ namespace BabysitterKata5._0
 			int numberOfHoursAtFifteenDollarRate = 0;
 			int numberOfHoursAtTwentyDollarRate = 0;
 			int paymentForFamilyA = 0;
+			const int elevenPM = 6;
 
 			// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
 
-			if (startTime >= 6) //if start time is at or after 11pm
+			if (startTime >= elevenPM) //if start time is at or after 11pm
 			{
 				numberOfHoursAtTwentyDollarRate = endTime - startTime;
 			}
 
-			if (startTime < 6 && endTime <= 6) //if start time is before 11pm and end time before or at 11pm
+			if (startTime < elevenPM && endTime <= elevenPM) //if start time is before 11pm and end time before or at 11pm
 			{
 				numberOfHoursAtFifteenDollarRate = endTime - startTime;
 			}
 
-			if (startTime < 6 && endTime > 6) //if start time is before 11pm and end time after 11pm
+			if (startTime < elevenPM && endTime > elevenPM) //if start time is before 11pm and end time after 11pm
 			{
-				numberOfHoursAtFifteenDollarRate = 6 - startTime;
-				numberOfHoursAtTwentyDollarRate = endTime - 6;
+				numberOfHoursAtFifteenDollarRate = elevenPM - startTime;
+				numberOfHoursAtTwentyDollarRate = endTime - elevenPM;
 			}
 
 			paymentForFamilyA = ((numberOfHoursAtFifteenDollarRate*15) + (numberOfHoursAtTwentyDollarRate*20));
