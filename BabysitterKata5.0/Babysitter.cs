@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,8 +34,35 @@ namespace BabysitterKata5._0
 
 		public int CalculateBabysitterPayment(int startTime, int endTime, Family family)
 		{
-			int calculatedPayment = CalculateHoursWorked(startTime, endTime) * 2;
+			int calculatedPayment = 0;
+			int hoursWorked = CalculateHoursWorked(startTime, endTime);
+
+			if (family.Equals(Family.A))
+			{
+				calculatedPayment = CalculateFamily_A_Rate(startTime, endTime, hoursWorked);
+			}
+
 			return calculatedPayment;
-		}		
+
+		}
+
+		//FAMILY A RATE
+		public int CalculateFamily_A_Rate(int startTime, int endTime, int hoursWorked)
+		{
+			//initialize variables
+			int numberOfHoursAtFifteenDollarRate = 0;
+			int paymentForFamilyA = 0;
+
+			/// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
+			if (startTime < 6 && endTime >= 6)
+			{
+				numberOfHoursAtFifteenDollarRate = endTime - startTime;
+			}
+
+			paymentForFamilyA = numberOfHoursAtFifteenDollarRate * 15;
+
+			return paymentForFamilyA;
+		}
+
     }
 }
