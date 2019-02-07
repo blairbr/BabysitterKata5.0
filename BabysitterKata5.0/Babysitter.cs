@@ -8,6 +8,8 @@ namespace BabysitterKata5._0
 {
     public class Babysitter
     {
+		public enum Family {A,B,C }
+
 		public bool StartTimeIsFivePmOrLater(int startTime)
 		{
 			return startTime >= 0;
@@ -28,6 +30,10 @@ namespace BabysitterKata5._0
 			return endTime - startTime;
 		}
 
-		
+		public int CalculateBabysitterPayment(int startTime, int endTime)
+		{
+			int calculatedPayment = CalculateHoursWorked(startTime, endTime) * 2;
+			return calculatedPayment;
+		}		
     }
 }
