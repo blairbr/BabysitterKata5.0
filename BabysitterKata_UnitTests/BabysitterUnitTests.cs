@@ -66,7 +66,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 10;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 5);
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 5, Babysitter.Family.A);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
