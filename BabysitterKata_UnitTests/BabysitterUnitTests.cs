@@ -18,5 +18,17 @@ namespace BabysitterKata_UnitTests
 			//Assert
 			Assert.AreEqual(expectedValue, hoursWorked);
 		}
+
+		[TestMethod]
+		public void CheckThatBabysitterStartsAtFivePmOrLater()
+		{
+			//Arrange
+			Babysitter babysitter = new Babysitter();
+			bool expectedValue = true;
+			//Act
+			bool result = babysitter.StartTimeIsFivePmOrLater(1);
+			//Assert
+			Assert.AreEqual(expectedValue, result);
+		}
 	}
 }

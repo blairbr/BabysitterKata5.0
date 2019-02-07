@@ -8,9 +8,15 @@ namespace BabysitterKata5._0
 {
     public class Babysitter
     {
-		public int CalculateHoursWorked(int StartTime, int EndTime)
+		public bool StartTimeIsFivePmOrLater(int startTime)
 		{
-			return EndTime - StartTime;
+			return startTime > 0;
+		}
+
+
+		public int CalculateHoursWorked(int startTime, int endTime)
+		{
+			return endTime - startTime;
 		}
     }
 }
