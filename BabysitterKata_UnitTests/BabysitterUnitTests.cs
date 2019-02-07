@@ -7,11 +7,19 @@ namespace BabysitterKata_UnitTests
 	[TestClass]
 	public class BabysitterUnitTests
 	{
+		private Babysitter babysitter;
+
+		[TestInitialize]
+		public void Setup()
+		{
+			//Arrange
+			babysitter = new Babysitter();
+		}
+
 		[TestMethod]
 		public void CheckIfCalculateHoursWorkedReturnsEndTimeMinusStartTime()
 		{
-			//Arrange
-			Babysitter babysitter = new Babysitter();
+			Setup();
 			int expectedValue = 1;
 			//Act
 			int hoursWorked = babysitter.CalculateHoursWorked(0, 1);
@@ -23,10 +31,20 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatBabysitterStartsAtFivePmOrLater()
 		{
 			//Arrange
-			Babysitter babysitter = new Babysitter();
 			bool expectedValue = true;
 			//Act
-			bool result = babysitter.StartTimeIsFivePmOrLater(1);
+			bool result = babysitter.StartTimeIsFivePmOrLater(0);
+			//Assert
+			Assert.AreEqual(expectedValue, result);
+		}
+
+		[TestMethod]
+		public void CheckThatBabysitterShiftEndsAtFourAmOrEarlier()
+		{
+			//Arrange
+			bool expectedValue = true;
+			//Act
+			bool result = babysitter.EndTimeIsFourAmOrEarlier(11);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
