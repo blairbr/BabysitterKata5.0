@@ -46,23 +46,29 @@ namespace BabysitterKata5._0
 
 		}
 
-		//FAMILY A RATE
+		//FAMILY "A" RATE
 		public int CalculateFamily_A_Rate(int startTime, int endTime, int hoursWorked)
 		{
 			//initialize variables
 			int numberOfHoursAtFifteenDollarRate = 0;
+			int numberOfHoursAtTwentyDollarRate = 0;
 			int paymentForFamilyA = 0;
 
-			/// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
+			// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
+
 			if (startTime < 6 && endTime >= 6)
 			{
 				numberOfHoursAtFifteenDollarRate = endTime - startTime;
 			}
 
-			paymentForFamilyA = numberOfHoursAtFifteenDollarRate * 15;
+			if (startTime >= 6)
+			{
+				numberOfHoursAtTwentyDollarRate = endTime - startTime;
+			}
+
+			paymentForFamilyA = ((numberOfHoursAtFifteenDollarRate*15) + (numberOfHoursAtTwentyDollarRate*20));
 
 			return paymentForFamilyA;
 		}
-
     }
 }
