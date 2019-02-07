@@ -18,9 +18,16 @@ namespace BabysitterKata5._0
 			return endTime <= 11;
 		}
 
+		public bool StartTimeIsBeforeEndTime(int startTime, int endTime)
+		{
+			return endTime > startTime;
+		}
+
 		public int CalculateHoursWorked(int startTime, int endTime)
 		{
 			return endTime - startTime;
 		}
+
+		
     }
 }

@@ -48,5 +48,16 @@ namespace BabysitterKata_UnitTests
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
+
+		[TestMethod]
+		public void CheckThatBabysitterStartTimeIsBeforeEndTime()
+		{
+			//Arrange
+			bool expectedValue = true;
+			//Act
+			bool result = babysitter.StartTimeIsBeforeEndTime(2, 7);
+			//Assert
+			Assert.AreEqual(expectedValue, result);
+		}
 	}
 }
