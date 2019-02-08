@@ -115,10 +115,16 @@ namespace BabysitterKata5._0
 				numberOfHoursAt16DollarRate = hoursWorked;
 			}
 
-			else
+			else if (startTime < tenPM && endTime <= midnight)
 			{
 				numberOfHoursAt12DollarRate = tenPM - startTime;
 				numberOfHoursAt8DollarRate = midnight - endTime;
+			}
+
+			else
+			{
+				numberOfHoursAt8DollarRate = midnight - startTime;
+				numberOfHoursAt16DollarRate = endTime - midnight;
 			}
 
 			int paymentForFamilyB = numberOfHoursAt12DollarRate * 12 + numberOfHoursAt8DollarRate * 8 + numberOfHoursAt16DollarRate * 16;
