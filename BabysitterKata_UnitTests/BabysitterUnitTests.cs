@@ -60,7 +60,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
+		public void CheckBabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 90;
@@ -71,7 +71,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_A_From11pmTo4amAndEarnsTwentyDollarsAnHourForFiveHours()
+		public void CheckBabysitterWorksForFamily_A_From11pmTo4amAndEarnsTwentyDollarsAnHourForFiveHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 100;
@@ -82,7 +82,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_A_From10pmTo12amAndEarns15DollarsAnHourForOneHourAndTwentyDollarsAnHourForTheSecondHour()
+		public void CheckBabysitterWorksForFamily_A_From10pmTo12amAndEarns15DollarsAnHourForOneHourAndTwentyDollarsAnHourForTheSecondHour()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 35;
@@ -93,7 +93,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_A_From7pmTo4amAndEarns15DollarsAnHourForFourHoursAndTwentyDollarsAnHourForFiveHours()
+		public void CheckBabysitterWorksForFamily_A_From7pmTo4amAndEarns15DollarsAnHourForFourHoursAndTwentyDollarsAnHourForFiveHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 160;
@@ -104,7 +104,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_C_From5pmTo9pmAndEarns21DollarsAnHourForFourHours()
+		public void CheckBabysitterWorksForFamily_C_From5pmTo9pmAndEarns21DollarsAnHourForFourHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 84;
@@ -115,7 +115,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_C_From9pmTo4amAndEarns15DollarsAnHourFor7Hours()
+		public void CheckBabysitterWorksForFamily_C_From9pmTo4amAndEarns15DollarsAnHourFor7Hours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 105;
@@ -126,7 +126,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_C_From8pmTo11pmAndEarns21DollarsAnHourForOneHourAnd15DollarsAnHourForTwoHours()
+		public void CheckBabysitterWorksForFamily_C_From8pmTo11pmAndEarns21DollarsAnHourForOneHourAnd15DollarsAnHourForTwoHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 51;
@@ -137,7 +137,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_B_From5pmTo10pmAndEarns12DollarsAnHourFor5Hours()
+		public void CheckBabysitterWorksForFamily_B_From5pmTo10pmAndEarns12DollarsAnHourFor5Hours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 60;
@@ -148,7 +148,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_B_From10pmTo12amAndEarns8DollarsAnHourForTwoHours()
+		public void CheckBabysitterWorksForFamily_B_From10pmTo12amAndEarns8DollarsAnHourForTwoHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 16;
@@ -159,12 +159,23 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[TestMethod]
-		public void BabysitterWorksForFamily_B_From12amTo4amAndEarns16DollarsAnHourForFourHours()
+		public void CheckBabysitterWorksForFamily_B_From12amTo4amAndEarns16DollarsAnHourForFourHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 64;
 			//Act
 			int calculatedPayment = babysitter.CalculateBabysitterPayment(7, 11, Babysitter.Family.B);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_B_From8pmTo11pmAndEarns12DollarsAnHourForTheFirst2HoursAnd8DollarsAnHourForTheThirdHour()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 32;
+			//Act
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(3, 6, Babysitter.Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
