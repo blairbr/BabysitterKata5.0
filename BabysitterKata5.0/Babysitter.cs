@@ -10,8 +10,6 @@ namespace BabysitterKata5._0
     public class Babysitter
     {
 
-					int numberOfHoursAt12DollarRate = 0;
-
 		public enum Family {A, B, C }
 		
 		public bool StartTimeIsFivePmOrLater(int startTime)
@@ -34,9 +32,24 @@ namespace BabysitterKata5._0
 			return endTime - startTime;
 		}
 
+		public void ValidateUserInput(int startTime, int endTime, Family family)
+		{
+			bool validEndTime = EndTimeIsFourAmOrEarlier(endTime);
+			bool validStartTime = StartTimeIsFivePmOrLater(startTime);
+			bool startAndEndAreInChronologicalOrder = StartTimeIsBeforeEndTime(startTime, endTime);
+
+			if (!(validEndTime && validStartTime && startAndEndAreInChronologicalOrder))
+			{
+				ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
+				throw ex;
+			}
+		}
 
 		public int CalculateBabysitterPayment(int startTime, int endTime, Family family)
 		{
+
+			ValidateUserInput(startTime, endTime, family);
+
 			int calculatedPayment = 0;
 			int hoursWorked = CalculateHoursWorked(startTime, endTime);
 
@@ -77,7 +90,6 @@ namespace BabysitterKata5._0
 				numberOfHoursAtTwentyDollarRate = hoursWorked;
 			}
 
-			//if start time is before 11pm and end time after 11pm
 			else
 			{
 				numberOfHoursAtFifteenDollarRate = elevenPM - startTime;
@@ -94,7 +106,7 @@ namespace BabysitterKata5._0
 		{
 
 			// Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
-			//int numberOfHoursAt12DollarRate = 0;
+			int numberOfHoursAt12DollarRate = 0;
 			int numberOfHoursAt8DollarRate = 0;
 			int numberOfHoursAt16DollarRate = 0;
 			const int tenPM = 5;
@@ -141,7 +153,6 @@ namespace BabysitterKata5._0
 		//FAMILY "C" RATE
 		public int CalculateFamily_C_Rate(int startTime, int endTime, int hoursWorked)
 		{
-			//initialize variables
 			int numberOfHoursAt_21_DollarRate = 0;
 			int numberOfHoursAt_15_DollarRate = 0;
 			int paymentForFamilyC = 0;
@@ -154,7 +165,7 @@ namespace BabysitterKata5._0
 				numberOfHoursAt_21_DollarRate = hoursWorked;
 			}
 
-			if (startTime >= ninePM)
+			else if (startTime >= ninePM)
 			{
 				numberOfHoursAt_15_DollarRate = hoursWorked;
 			}
