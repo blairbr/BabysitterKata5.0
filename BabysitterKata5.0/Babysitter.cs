@@ -42,6 +42,11 @@ namespace BabysitterKata5._0
 				calculatedPayment = CalculateFamily_A_Rate(startTime, endTime, hoursWorked);
 			}
 
+			if (family.Equals(Family.C))
+			{
+				calculatedPayment = CalculateFamily_C_Rate(startTime, endTime, hoursWorked);
+			}
+
 			return calculatedPayment;
 
 		}
@@ -59,12 +64,12 @@ namespace BabysitterKata5._0
 
 			if (startTime >= elevenPM) //if start time is at or after 11pm
 			{
-				numberOfHoursAtTwentyDollarRate = endTime - startTime;
+				numberOfHoursAtTwentyDollarRate = hoursWorked;
 			}
 
 			if (startTime < elevenPM && endTime <= elevenPM) //if start time is before 11pm and end time before or at 11pm
 			{
-				numberOfHoursAtFifteenDollarRate = endTime - startTime;
+				numberOfHoursAtFifteenDollarRate = hoursWorked;
 			}
 
 			if (startTime < elevenPM && endTime > elevenPM) //if start time is before 11pm and end time after 11pm
@@ -73,9 +78,30 @@ namespace BabysitterKata5._0
 				numberOfHoursAtTwentyDollarRate = endTime - elevenPM;
 			}
 
-			paymentForFamilyA = ((numberOfHoursAtFifteenDollarRate*15) + (numberOfHoursAtTwentyDollarRate*20));
+			paymentForFamilyA = numberOfHoursAtFifteenDollarRate*15 + numberOfHoursAtTwentyDollarRate*20;
 
 			return paymentForFamilyA;
 		}
-    }
+
+		//FAMILY "C" RATE
+		public int CalculateFamily_C_Rate(int startTime, int endTime, int hoursWorked)
+		{
+			//initialize variables
+			int numberOfHoursAt_21_DollarRate = 0;
+			int numberOfHoursAt_15_DollarRate = 0;
+			int paymentForFamilyC = 0;
+			const int ninePM = 4;
+
+			// Family C pays $21 per hour before 9pm, then $15 the rest of the night
+
+			if (endTime <= ninePM)
+			{
+				numberOfHoursAt_21_DollarRate = hoursWorked;
+			}
+
+			paymentForFamilyC = numberOfHoursAt_21_DollarRate * 21 + numberOfHoursAt_15_DollarRate * 15;
+
+			return paymentForFamilyC;
+		}
+	}
 }
