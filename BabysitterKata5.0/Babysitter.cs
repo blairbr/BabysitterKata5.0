@@ -100,7 +100,14 @@ namespace BabysitterKata5._0
 			const int tenPM = 5;
 			const int midnight = 7;
 
-			if (endTime <= tenPM)
+			if (startTime < tenPM && endTime > midnight)
+			{
+				numberOfHoursAt12DollarRate = tenPM - startTime;
+				numberOfHoursAt8DollarRate = 2;
+				numberOfHoursAt16DollarRate = endTime - midnight;
+			}
+
+			else if (endTime <= tenPM)
 			{
 				numberOfHoursAt12DollarRate = endTime - startTime;
 			}
