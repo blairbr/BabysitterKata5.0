@@ -19,7 +19,6 @@ namespace BabysitterKata_UnitTests
 		[TestMethod]
 		public void CheckIfCalculateHoursWorkedReturnsEndTimeMinusStartTime()
 		{
-			Setup();
 			int expectedValue = 1;
 			//Act
 			int hoursWorked = babysitter.CalculateHoursWorked(0, 1);
@@ -111,6 +110,39 @@ namespace BabysitterKata_UnitTests
 			int expectedPaymentInDollars = 84;
 			//Act
 			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 4, Babysitter.Family.C);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void BabysitterWorksForFamily_C_From9pmTo4amAndEarns15DollarsAnHourFor7Hours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 105;
+			//Act
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(4, 11, Babysitter.Family.C);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void BabysitterWorksForFamily_C_From8pmTo11pmAndEarns21DollarsAnHourForOneHourAnd15DollarsAnHourForTwoHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 51;
+			//Act
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(3, 6, Babysitter.Family.C);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void BabysitterWorksForFamily_B_From5pmTo10pmAndEarns12DollarsAnHourFor5Hours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 60;
+			//Act
+			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 5, Babysitter.Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}

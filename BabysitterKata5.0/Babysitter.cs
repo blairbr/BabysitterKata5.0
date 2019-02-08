@@ -42,10 +42,12 @@ namespace BabysitterKata5._0
 				calculatedPayment = CalculateFamily_A_Rate(startTime, endTime, hoursWorked);
 			}
 
-			if (family.Equals(Family.C))
+			else if (family.Equals(Family.C))
 			{
 				calculatedPayment = CalculateFamily_C_Rate(startTime, endTime, hoursWorked);
 			}
+
+			else calculatedPayment = CalculateFamily_B_Rate(hoursWorked);
 
 			return calculatedPayment;
 
@@ -62,17 +64,18 @@ namespace BabysitterKata5._0
 
 			// Family A pays $15 per hour before 11pm, and $20 per hour the rest of the night
 
-			if (startTime >= elevenPM) //if start time is at or after 11pm
-			{
-				numberOfHoursAtTwentyDollarRate = hoursWorked;
-			}
-
-			if (startTime < elevenPM && endTime <= elevenPM) //if start time is before 11pm and end time before or at 11pm
+			if (endTime <= elevenPM)
 			{
 				numberOfHoursAtFifteenDollarRate = hoursWorked;
 			}
 
-			if (startTime < elevenPM && endTime > elevenPM) //if start time is before 11pm and end time after 11pm
+			if (startTime >= elevenPM)
+			{
+				numberOfHoursAtTwentyDollarRate = hoursWorked;
+			}
+
+			//if start time is before 11pm and end time after 11pm
+			else
 			{
 				numberOfHoursAtFifteenDollarRate = elevenPM - startTime;
 				numberOfHoursAtTwentyDollarRate = endTime - elevenPM;
@@ -81,6 +84,15 @@ namespace BabysitterKata5._0
 			paymentForFamilyA = numberOfHoursAtFifteenDollarRate*15 + numberOfHoursAtTwentyDollarRate*20;
 
 			return paymentForFamilyA;
+		}
+
+		//FAMILY "B" RATE
+		public int CalculateFamily_B_Rate(int hoursWorked)
+		{
+
+			// Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
+			int numberOfHoursAt12DollarRate = hoursWorked;
+			return numberOfHoursAt12DollarRate*12;
 		}
 
 		//FAMILY "C" RATE
@@ -97,6 +109,17 @@ namespace BabysitterKata5._0
 			if (endTime <= ninePM)
 			{
 				numberOfHoursAt_21_DollarRate = hoursWorked;
+			}
+
+			if (startTime >= ninePM)
+			{
+				numberOfHoursAt_15_DollarRate = hoursWorked;
+			}
+
+			else
+			{
+				numberOfHoursAt_21_DollarRate = ninePM - startTime;
+				numberOfHoursAt_15_DollarRate = endTime - ninePM;
 			}
 
 			paymentForFamilyC = numberOfHoursAt_21_DollarRate * 21 + numberOfHoursAt_15_DollarRate * 15;
