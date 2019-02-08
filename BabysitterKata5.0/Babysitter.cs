@@ -9,6 +9,9 @@ namespace BabysitterKata5._0
 {
     public class Babysitter
     {
+
+					int numberOfHoursAt12DollarRate = 0;
+
 		public enum Family {A, B, C }
 		
 		public bool StartTimeIsFivePmOrLater(int startTime)
@@ -69,7 +72,7 @@ namespace BabysitterKata5._0
 				numberOfHoursAtFifteenDollarRate = hoursWorked;
 			}
 
-			if (startTime >= elevenPM)
+			else if (startTime >= elevenPM)
 			{
 				numberOfHoursAtTwentyDollarRate = hoursWorked;
 			}
@@ -91,8 +94,9 @@ namespace BabysitterKata5._0
 		{
 
 			// Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
-			int numberOfHoursAt12DollarRate = 0;
+			//int numberOfHoursAt12DollarRate = 0;
 			int numberOfHoursAt8DollarRate = 0;
+			int numberOfHoursAt16DollarRate = 0;
 			const int tenPM = 5;
 			const int midnight = 7;
 
@@ -106,7 +110,12 @@ namespace BabysitterKata5._0
 				numberOfHoursAt8DollarRate = endTime - startTime;
 			}
 
-			int paymentForFamilyB = numberOfHoursAt12DollarRate * 12 + numberOfHoursAt8DollarRate * 8;
+			if (startTime >= midnight)
+			{
+				numberOfHoursAt16DollarRate = hoursWorked;
+			}
+
+			int paymentForFamilyB = numberOfHoursAt12DollarRate * 12 + numberOfHoursAt8DollarRate * 8 + numberOfHoursAt16DollarRate * 16;
 			return paymentForFamilyB;
 		}
 
