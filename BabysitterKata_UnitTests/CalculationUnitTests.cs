@@ -5,58 +5,27 @@ using BabysitterKata5._0;
 namespace BabysitterKata_UnitTests
 {
 	[TestClass]
-	public class BabysitterUnitTests
+	public class CalculationUnitTests
 	{
-		private Babysitter babysitter;
+		private ICalculationService calculationService;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			//Arrange
-			babysitter = new Babysitter();
+			calculationService = new CalculationService();
+
 		}
 
 		[TestMethod]
 		public void CheckIfCalculateHoursWorkedReturnsEndTimeMinusStartTime()
 		{
+			//Arrange
 			int expectedValue = 1;
 			//Act
-			int hoursWorked = babysitter.CalculateHoursWorked(0, 1);
+			int hoursWorked = calculationService.CalculateHoursWorked(0, 1);
 			//Assert
 			Assert.AreEqual(expectedValue, hoursWorked);
-		}
-
-		[TestMethod]
-		public void CheckThatBabysitterStartsAtFivePmOrLater()
-		{
-			//Arrange
-			bool expectedValue = true;
-			//Act
-			bool result = babysitter.StartTimeIsFivePmOrLater(0);
-			//Assert
-			Assert.AreEqual(expectedValue, result);
-		}
-
-		[TestMethod]
-		public void CheckThatBabysitterShiftEndsAtFourAmOrEarlier()
-		{
-			//Arrange
-			bool expectedValue = true;
-			//Act
-			bool result = babysitter.EndTimeIsFourAmOrEarlier(11);
-			//Assert
-			Assert.AreEqual(expectedValue, result);
-		}
-
-		[TestMethod]
-		public void CheckThatBabysitterStartTimeIsBeforeEndTime()
-		{
-			//Arrange
-			bool expectedValue = true;
-			//Act
-			bool result = babysitter.StartTimeIsBeforeEndTime(2, 7);
-			//Assert
-			Assert.AreEqual(expectedValue, result);
 		}
 
 		[TestMethod]
@@ -65,7 +34,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 90;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 6, Babysitter.Family.A);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(0, 6, Family.A);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -76,7 +45,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 100;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(6, 11, Babysitter.Family.A);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(6, 11, Family.A);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -87,7 +56,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 35;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(5, 7, Babysitter.Family.A);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(5, 7, Family.A);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -98,7 +67,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 160;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(2, 11, Babysitter.Family.A);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(2, 11, Family.A);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -109,7 +78,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 84;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 4, Babysitter.Family.C);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(0, 4, Family.C);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -120,7 +89,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 105;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(4, 11, Babysitter.Family.C);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(4, 11, Family.C);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -131,7 +100,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 51;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(3, 6, Babysitter.Family.C);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(3, 6, Family.C);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -142,7 +111,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 60;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 5, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(0, 5, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -153,7 +122,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 16;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(5, 7, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(5, 7, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -164,7 +133,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 64;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(7, 11, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(7, 11, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -175,7 +144,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 32;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(3, 6, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(3, 6, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -186,7 +155,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 64;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(5, 10, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(5, 10, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -197,7 +166,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 140;
 			//Act
-			int calculatedPayment = babysitter.CalculateBabysitterPayment(0, 11, Babysitter.Family.B);
+			int calculatedPayment = calculationService.CalculateBabysitterPayment(0, 11, Family.B);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}

@@ -1,54 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BabysitterKata5._0
 {
-    public class Babysitter
-    {
+	public class CalculationService : ICalculationService
+	{
 
-		public enum Family {A, B, C }
-		
-		public bool StartTimeIsFivePmOrLater(int startTime)
-		{
-			return startTime >= 0;
-		}
-
-		public bool EndTimeIsFourAmOrEarlier(int endTime)
-		{
-			return endTime <= 11;
-		}
-
-		public bool StartTimeIsBeforeEndTime(int startTime, int endTime)
-		{
-			return endTime > startTime;
-		}
+		//To-do: this could use more refactoring
 
 		public int CalculateHoursWorked(int startTime, int endTime)
 		{
 			return endTime - startTime;
 		}
 
-		public void ValidateUserInput(int startTime, int endTime, Family family)
-		{
-			bool validEndTime = EndTimeIsFourAmOrEarlier(endTime);
-			bool validStartTime = StartTimeIsFivePmOrLater(startTime);
-			bool startAndEndAreInChronologicalOrder = StartTimeIsBeforeEndTime(startTime, endTime);
-
-			if (!(validEndTime && validStartTime && startAndEndAreInChronologicalOrder))
-			{
-				ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
-				throw ex;
-			}
-		}
-
 		public int CalculateBabysitterPayment(int startTime, int endTime, Family family)
 		{
-
-			ValidateUserInput(startTime, endTime, family);
 
 			int calculatedPayment = 0;
 			int hoursWorked = CalculateHoursWorked(startTime, endTime);
@@ -96,7 +65,7 @@ namespace BabysitterKata5._0
 				numberOfHoursAtTwentyDollarRate = endTime - elevenPM;
 			}
 
-			paymentForFamilyA = numberOfHoursAtFifteenDollarRate*15 + numberOfHoursAtTwentyDollarRate*20;
+			paymentForFamilyA = numberOfHoursAtFifteenDollarRate * 15 + numberOfHoursAtTwentyDollarRate * 20;
 
 			return paymentForFamilyA;
 		}
@@ -180,5 +149,6 @@ namespace BabysitterKata5._0
 
 			return paymentForFamilyC;
 		}
+
 	}
 }
