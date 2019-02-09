@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BabysitterKata5._0
 {
-	public class Program
+	public class Rate
 	{
-		static void Main(string[] args)
-		{
-		}
+		public int startTime { get; set; }
+		public int endTime { get; set; }
+		public int dollarsPerHour { get; set; }
 	}
 }
