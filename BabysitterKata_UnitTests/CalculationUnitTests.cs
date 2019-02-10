@@ -12,75 +12,55 @@ namespace BabysitterKata_UnitTests
 	public class CalculationUnitTests
 	{
 		private PaymentCalculator calculator;
+		private BabySitterContract babySitterContract;
 
-		private List<Rate> listOfRates;
-
-		private const int sevenPM = 2;
-		private const int midnight = 7;
-
+		private List<Rate> listOfRates_FamilyA;
+		private List<Rate> listOfRates_FamilyB;
+		private List<Rate> listOfRates_FamilyC;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			calculator = new PaymentCalculator();
-			listOfRates = new List<Rate>();
+			babySitterContract = new BabySitterContract();
+
+			// Initialize Family A Rate List
+			listOfRates_FamilyA = new List<Rate>();
+			Rate fifteenDollarRate = new Rate() { rateStartTime = TimeConversion.FivePm, rateEndTime = TimeConversion.ElevenPm, dollarsPerHour = 15 };
+			Rate twentyDollarRate = new Rate() { rateStartTime = TimeConversion.ElevenPm, rateEndTime = TimeConversion.FourAm, dollarsPerHour = 20 };
+			listOfRates_FamilyA.Add(fifteenDollarRate);
+			listOfRates_FamilyA.Add(twentyDollarRate);
+
+			// Initialize Family B Rate List
+			listOfRates_FamilyB = new List<Rate>();
+			Rate twelveDollarsAnHour = new Rate() { rateStartTime = TimeConversion.FivePm, rateEndTime = TimeConversion.TenPm, dollarsPerHour = 12 };
+			Rate eightDollarsAnHour = new Rate() { rateStartTime = TimeConversion.TenPm, rateEndTime = TimeConversion.Midnight, dollarsPerHour = 8 };
+			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = TimeConversion.Midnight, rateEndTime = TimeConversion.FourAm, dollarsPerHour = 16 };
+
+			listOfRates_FamilyB.Add(twelveDollarsAnHour);
+			listOfRates_FamilyB.Add(eightDollarsAnHour);
+			listOfRates_FamilyB.Add(sixteenDollarsAnHour);
+
+			// Initialize Family C Rate List
+			listOfRates_FamilyC = new List<Rate>();
+			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = TimeConversion.FivePm, rateEndTime = TimeConversion.NinePm, dollarsPerHour = 21 };
+			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = TimeConversion.NinePm, rateEndTime = TimeConversion.FourAm, dollarsPerHour = 15 };
+
+			listOfRates_FamilyC.Add(fifteenDollarsAnHour);
+			listOfRates_FamilyC.Add(twentyOneDollarsAnHour);
 		}
-
-
-		//start new test using the new babysitter contract object.
-		//I didnt like the way it was set up before where the rate was defined only for the hours worked during that rate period,
-		//so I plan to refactor the rest and c hagne the code so that a familiy can define a
-		//Rate start and end time, $/hr, and  babysitter's start and end time. for poc adding in a 'family x' w/ a flat rate of 15 an hour
+ 
 		[TestMethod]
-		public void NewCheckBabysitterWorksForFamily_X_From7pmToMidnightAndEarnsFifteenDollarsAnHourForFiveHours()
+		public void CheckBabysitterWorksForFamily_A_From7pmToMidnightAndEarnsFifteenDollarsAnHourFoursHoursAndTwentyDollarsAnHourForTheLastHour()
 		{
-
 			//Arrange
+			int expectedPaymentInDollars = 80;
+			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
-			int expectedPaymentInDollars = 75;
-
-			BabySitterContract babySitterContract = new BabySitterContract();
-			babySitterContract.BabysitterStartTime = sevenPM;
-			babySitterContract.BabysitterEndTime = midnight;
-			babySitterContract.ListOfRatesInBabysitterContract = new List<Rate>();
-			Rate fifteenDollarRate = new Rate() { rateStartTime = 0, rateEndTime = 11, dollarsPerHour = 15 };
-
-			babySitterContract.ListOfRatesInBabysitterContract.Add(fifteenDollarRate);
 			//Act
 			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
-			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
-		}
-
-		// end new test
-
-
-		[TestMethod]
-		public void CheckBabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
-		{
-			//Arrange
-			Rate fifteenDollarRate = new Rate() { rateStartTime = 0, rateEndTime = 6, dollarsPerHour = 15 };
-
-			listOfRates.Add(fifteenDollarRate);
-
-			int expectedPaymentInDollars = 90;
-			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
-			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
-		}
-
-		[TestMethod]
-		public void CheckBabysitterWorksForFamily_A_From11pmTo4amAndEarnsTwentyDollarsAnHourForFiveHours()
-		{
-			//Arrange
-			int expectedPaymentInDollars = 100;
-			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 11, dollarsPerHour = 20 };
-
-			listOfRates.Add(twentyDollarRate);
-
-			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -90,14 +70,78 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 35;
-			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 6, dollarsPerHour = 15 };
-			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 7, dollarsPerHour = 20 };
 
-			listOfRates.Add(fifteenDollarsAnHour);
-			listOfRates.Add(twentyDollarRate);
-			
+			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
+
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_A_FromMidnightTo3amAndEarns20DollarsAnHourForThreeHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 60;
+
+			babySitterContract.BabysitterStartTime = TimeConversion.Midnight;
+			babySitterContract.BabysitterEndTime = TimeConversion.ThreeAm;
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
+
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_A_From5PmTo9pmAndEarns15DollarsAnHourForFourHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 60;
+
+			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.NinePm;
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
+
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 90;
+
+			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
+
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_A_From11pmTo4amAndEarnsTwentyDollarsAnHourForFiveHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 100;
+
+			babySitterContract.BabysitterStartTime = TimeConversion.ElevenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
+
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -107,18 +151,15 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 160;
+			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
-			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 2, rateEndTime = 6, dollarsPerHour = 15 };
-			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 11, dollarsPerHour = 20 };
-
-			listOfRates.Add(fifteenDollarsAnHour);
-			listOfRates.Add(twentyDollarRate);
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
-
 
 		///Family C pays $21 per hour before 9pm, then $15 the rest of the night
 		[TestMethod]
@@ -126,11 +167,12 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 84;
-			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 4, dollarsPerHour = 21 };
+			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.NinePm;
 
-			listOfRates.Add(twentyOneDollarsAnHour);
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -140,11 +182,13 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 105;
-			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 4, rateEndTime = 11, dollarsPerHour = 15 };
-			listOfRates.Add(fifteenDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.NinePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -154,12 +198,12 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 51;
-			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = 3, rateEndTime = 4, dollarsPerHour = 21 };
-			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 4, rateEndTime = 6, dollarsPerHour = 15 };
-			listOfRates.Add(fifteenDollarsAnHour);
-			listOfRates.Add(twentyOneDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.EightPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -171,11 +215,13 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 60;
-			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 5, dollarsPerHour = 12 };
-			listOfRates.Add(twelveDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.TenPm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -185,23 +231,28 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 16;
-			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
-			listOfRates.Add(eightDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
 
+		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 		[TestMethod]
 		public void CheckBabysitterWorksForFamily_B_From12amTo4amAndEarns16DollarsAnHourForFourHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 64;
-			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 11, dollarsPerHour = 16 };
-			listOfRates.Add(sixteenDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.Midnight;
+			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -212,28 +263,29 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 32;
 
-			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 3, rateEndTime = 5, dollarsPerHour = 12 };
-			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 6, dollarsPerHour = 8 };
-			listOfRates.Add(twelveDollarsAnHour);
-			listOfRates.Add(eightDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.EightPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
 
+		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 		[TestMethod]
 		public void CheckBabysitterWorksForFamily_B_From10pmTo3amAndEarns8DollarsAnHourForTheFirst2HoursAnd16DollarsAnHourForTheLastThreeHours()
 		{
 			//Arrange
 			int expectedPaymentInDollars = 64;
-			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
-			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 10, dollarsPerHour = 16 };
-			listOfRates.Add(eightDollarsAnHour);
-			listOfRates.Add(sixteenDollarsAnHour);
+			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.ThreeAm;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}
@@ -244,15 +296,27 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 140;
-			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 5, dollarsPerHour = 12 };
-			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
-			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 11, dollarsPerHour = 16 };
+			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
-			listOfRates.Add(twelveDollarsAnHour);
-			listOfRates.Add(eightDollarsAnHour);
-			listOfRates.Add(sixteenDollarsAnHour);
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+		//•	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
+		[TestMethod]
+		public void CheckBabysitterWorksForFamily_B_From6pmToMidnightAndEarns12DollarsAnHourForTheFirst4HoursAndEightDollarsAnHourForTheLastTwoHours()
+		{
+			//Arrange
+			int expectedPaymentInDollars = 64;
+			babySitterContract.BabysitterStartTime = TimeConversion.SixPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
+
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
 			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
 		}

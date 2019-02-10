@@ -7,13 +7,13 @@ namespace BabysitterKata_UnitTests
 	[TestClass]
 	public class ValidationUnitTests
 	{
-		private IValidationService validationService;
+		private InputValidation validationService;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			//Arrange
-			validationService = new ValidationService();
+			validationService = new InputValidation();
 		}
 
 		[TestMethod]
@@ -22,7 +22,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.rateStartTimeIsFivePmOrLater(0);
+			bool result = validationService.BabysitterStartTimeIsFivePmOrLater(TimeConversion.SixPm);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
@@ -33,18 +33,29 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.rateEndTimeIsFourAmOrEarlier(11);
+			bool result = validationService.BabysitterEndTimeIsFourAmOrEarlier(TimeConversion.FourAm);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
 
 		[TestMethod]
-		public void CheckThatBabysitterrateStartTimeIsBeforerateEndTime()
+		public void CheckThatTestReturnsFalseIfBabysitterShiftEndsAfterFourAm()
+		{
+			//Arrange
+			bool expectedValue = false;
+			//Act
+			bool result = validationService.BabysitterEndTimeIsFourAmOrEarlier(TimeConversion.FiveAm);
+			//Assert
+			Assert.AreEqual(expectedValue, result);
+		}  //this should throw an exception
+
+		[TestMethod]
+		public void CheckThatBabysitterStartTimeIsBeforeBabysitterEndTime()
 		{
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.rateStartTimeIsBeforerateEndTime(2, 7);
+			bool result = validationService.BabysitterStartTimeIsBeforeBabysitterEndTime(TimeConversion.SevenPm, TimeConversion.OneAm);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
@@ -54,48 +65,47 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfValidateUserInputParametersAreNotValid()
 		{
 			//arrange with out of range variables
-			int rateStartTime = -1;
-			int rateEndTime = 77;
-			
+			int babysitterStartTime = TimeConversion.ThreePm;
+			int babysitterEndTime = TimeConversion.FiveAm;
+
 			//act
-			validationService.ValidateUserInput(rateStartTime, rateEndTime);
+			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfrateStartTimeAfterrateEndTime()
+		public void CheckThatExceptionIsThrownIfBabysitterStartTimeAfterBabysitterEndTime()
 		{
 			//arrange with out of range variables
-			int rateStartTime = 10;
-			int rateEndTime = 4;
+			int babysitterStartTime = TimeConversion.ThreePm;
+			int babysitterEndTime = TimeConversion.FiveAm;
 
 			//act
-			validationService.ValidateUserInput(rateStartTime, rateEndTime);
+			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfrateStartTimeBefore5pm()
+		public void CheckThatExceptionIsThrownIfBabysitterStartTimeBefore5pm()
 		{
 			//arrange with out of range variables
-			int rateStartTime = -4;
-			int rateEndTime = 4;
+			int babysitterStartTime = TimeConversion.TwoPm;
+			int babysitterEndTime = TimeConversion.TwoAm;
 
 			//act
-			validationService.ValidateUserInput(rateStartTime, rateEndTime);
+			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfrateEndTimeAfter4am()
+		public void CheckThatExceptionIsThrownIfBabysitterEndTimeAfter4am()
 		{
 			//arrange with out of range variables
-			int rateStartTime = 1;
-			int rateEndTime = 20;
+			int babysitterStartTime = TimeConversion.SixPm;
+			int babysitterEndTime = TimeConversion.FiveAm;
 
 			//act
-			validationService.ValidateUserInput(rateStartTime, rateEndTime);
+			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
 		}
-
 	}
 }
