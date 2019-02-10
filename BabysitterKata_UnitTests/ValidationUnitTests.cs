@@ -22,7 +22,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.StartTimeIsFivePmOrLater(0);
+			bool result = validationService.rateStartTimeIsFivePmOrLater(0);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
@@ -33,18 +33,18 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.EndTimeIsFourAmOrEarlier(11);
+			bool result = validationService.rateEndTimeIsFourAmOrEarlier(11);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
 
 		[TestMethod]
-		public void CheckThatBabysitterStartTimeIsBeforeEndTime()
+		public void CheckThatBabysitterrateStartTimeIsBeforerateEndTime()
 		{
 			//Arrange
 			bool expectedValue = true;
 			//Act
-			bool result = validationService.StartTimeIsBeforeEndTime(2, 7);
+			bool result = validationService.rateStartTimeIsBeforerateEndTime(2, 7);
 			//Assert
 			Assert.AreEqual(expectedValue, result);
 		}
@@ -54,47 +54,47 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfValidateUserInputParametersAreNotValid()
 		{
 			//arrange with out of range variables
-			int startTime = -1;
-			int endTime = 77;
+			int rateStartTime = -1;
+			int rateEndTime = 77;
 			
 			//act
-			validationService.ValidateUserInput(startTime, endTime);
+			validationService.ValidateUserInput(rateStartTime, rateEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfStartTimeAfterEndTime()
+		public void CheckThatExceptionIsThrownIfrateStartTimeAfterrateEndTime()
 		{
 			//arrange with out of range variables
-			int startTime = 10;
-			int endTime = 4;
+			int rateStartTime = 10;
+			int rateEndTime = 4;
 
 			//act
-			validationService.ValidateUserInput(startTime, endTime);
+			validationService.ValidateUserInput(rateStartTime, rateEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfStartTimeBefore5pm()
+		public void CheckThatExceptionIsThrownIfrateStartTimeBefore5pm()
 		{
 			//arrange with out of range variables
-			int startTime = -4;
-			int endTime = 4;
+			int rateStartTime = -4;
+			int rateEndTime = 4;
 
 			//act
-			validationService.ValidateUserInput(startTime, endTime);
+			validationService.ValidateUserInput(rateStartTime, rateEndTime);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException), "Start and/or end time is invalid.")]
-		public void CheckThatExceptionIsThrownIfEndTimeAfter4am()
+		public void CheckThatExceptionIsThrownIfrateEndTimeAfter4am()
 		{
 			//arrange with out of range variables
-			int startTime = 1;
-			int endTime = 20;
+			int rateStartTime = 1;
+			int rateEndTime = 20;
 
 			//act
-			validationService.ValidateUserInput(startTime, endTime);
+			validationService.ValidateUserInput(rateStartTime, rateEndTime);
 		}
 
 	}

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BabySitterContract.cs" />
     <Compile Include="PaymentCalculator.cs" />
     <Compile Include="Family.cs" />
     <Compile Include="IValidationService.cs" />

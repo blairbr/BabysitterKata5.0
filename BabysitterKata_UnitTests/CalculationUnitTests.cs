@@ -15,6 +15,9 @@ namespace BabysitterKata_UnitTests
 
 		private List<Rate> listOfRates;
 
+		private const int sevenPM = 2;
+		private const int midnight = 7;
+
 
 		[TestInitialize]
 		public void Setup()
@@ -23,11 +26,40 @@ namespace BabysitterKata_UnitTests
 			listOfRates = new List<Rate>();
 		}
 
+
+		//start new test using the new babysitter contract object.
+		//I didnt like the way it was set up before where the rate was defined only for the hours worked during that rate period,
+		//so I plan to refactor the rest and c hagne the code so that a familiy can define a
+		//Rate start and end time, $/hr, and  babysitter's start and end time. for poc adding in a 'family x' w/ a flat rate of 15 an hour
+		[TestMethod]
+		public void NewCheckBabysitterWorksForFamily_X_From7pmToMidnightAndEarnsFifteenDollarsAnHourForFiveHours()
+		{
+
+			//Arrange
+
+			int expectedPaymentInDollars = 75;
+
+			BabySitterContract babySitterContract = new BabySitterContract();
+			babySitterContract.BabysitterStartTime = sevenPM;
+			babySitterContract.BabysitterEndTime = midnight;
+			babySitterContract.ListOfRatesInBabysitterContract = new List<Rate>();
+			Rate fifteenDollarRate = new Rate() { rateStartTime = 0, rateEndTime = 11, dollarsPerHour = 15 };
+
+			babySitterContract.ListOfRatesInBabysitterContract.Add(fifteenDollarRate);
+			//Act
+			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			//Assert
+			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+		}
+
+		// end new test
+
+
 		[TestMethod]
 		public void CheckBabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
 		{
 			//Arrange
-			Rate fifteenDollarRate = new Rate() { startTime = 0, endTime = 6, dollarsPerHour = 15 };
+			Rate fifteenDollarRate = new Rate() { rateStartTime = 0, rateEndTime = 6, dollarsPerHour = 15 };
 
 			listOfRates.Add(fifteenDollarRate);
 
@@ -43,7 +75,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 100;
-			Rate twentyDollarRate = new Rate() { startTime = 6, endTime = 11, dollarsPerHour = 20 };
+			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 11, dollarsPerHour = 20 };
 
 			listOfRates.Add(twentyDollarRate);
 
@@ -58,8 +90,8 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 35;
-			Rate fifteenDollarsAnHour = new Rate() { startTime = 5, endTime = 6, dollarsPerHour = 15 };
-			Rate twentyDollarRate = new Rate() { startTime = 6, endTime = 7, dollarsPerHour = 20 };
+			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 6, dollarsPerHour = 15 };
+			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 7, dollarsPerHour = 20 };
 
 			listOfRates.Add(fifteenDollarsAnHour);
 			listOfRates.Add(twentyDollarRate);
@@ -76,8 +108,8 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 160;
 
-			Rate fifteenDollarsAnHour = new Rate() { startTime = 2, endTime = 6, dollarsPerHour = 15 };
-			Rate twentyDollarRate = new Rate() { startTime = 6, endTime = 11, dollarsPerHour = 20 };
+			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 2, rateEndTime = 6, dollarsPerHour = 15 };
+			Rate twentyDollarRate = new Rate() { rateStartTime = 6, rateEndTime = 11, dollarsPerHour = 20 };
 
 			listOfRates.Add(fifteenDollarsAnHour);
 			listOfRates.Add(twentyDollarRate);
@@ -94,7 +126,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 84;
-			Rate twentyOneDollarsAnHour = new Rate() { startTime = 0, endTime = 4, dollarsPerHour = 21 };
+			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 4, dollarsPerHour = 21 };
 
 			listOfRates.Add(twentyOneDollarsAnHour);
 			//Act
@@ -108,7 +140,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 105;
-			Rate fifteenDollarsAnHour = new Rate() { startTime = 4, endTime = 11, dollarsPerHour = 15 };
+			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 4, rateEndTime = 11, dollarsPerHour = 15 };
 			listOfRates.Add(fifteenDollarsAnHour);
 
 			//Act
@@ -122,8 +154,8 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 51;
-			Rate twentyOneDollarsAnHour = new Rate() { startTime = 3, endTime = 4, dollarsPerHour = 21 };
-			Rate fifteenDollarsAnHour = new Rate() { startTime = 4, endTime = 6, dollarsPerHour = 15 };
+			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = 3, rateEndTime = 4, dollarsPerHour = 21 };
+			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = 4, rateEndTime = 6, dollarsPerHour = 15 };
 			listOfRates.Add(fifteenDollarsAnHour);
 			listOfRates.Add(twentyOneDollarsAnHour);
 			//Act
@@ -139,7 +171,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 60;
-			Rate twelveDollarsAnHour = new Rate() { startTime = 0, endTime = 5, dollarsPerHour = 12 };
+			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 5, dollarsPerHour = 12 };
 			listOfRates.Add(twelveDollarsAnHour);
 
 			//Act
@@ -153,7 +185,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 16;
-			Rate eightDollarsAnHour = new Rate() { startTime = 5, endTime = 7, dollarsPerHour = 8 };
+			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
 			listOfRates.Add(eightDollarsAnHour);
 			//Act
 			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
@@ -166,7 +198,7 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 64;
-			Rate sixteenDollarsAnHour = new Rate() { startTime = 7, endTime = 11, dollarsPerHour = 16 };
+			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 11, dollarsPerHour = 16 };
 			listOfRates.Add(sixteenDollarsAnHour);
 			//Act
 			int calculatedPayment = calculator.CalculateBabysitterPayment(listOfRates);
@@ -180,8 +212,8 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			int expectedPaymentInDollars = 32;
 
-			Rate twelveDollarsAnHour = new Rate() { startTime = 3, endTime = 5, dollarsPerHour = 12 };
-			Rate eightDollarsAnHour = new Rate() { startTime = 5, endTime = 6, dollarsPerHour = 8 };
+			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 3, rateEndTime = 5, dollarsPerHour = 12 };
+			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 6, dollarsPerHour = 8 };
 			listOfRates.Add(twelveDollarsAnHour);
 			listOfRates.Add(eightDollarsAnHour);
 			//Act
@@ -195,8 +227,8 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 64;
-			Rate eightDollarsAnHour = new Rate() { startTime = 5, endTime = 7, dollarsPerHour = 8 };
-			Rate sixteenDollarsAnHour = new Rate() { startTime = 7, endTime = 10, dollarsPerHour = 16 };
+			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
+			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 10, dollarsPerHour = 16 };
 			listOfRates.Add(eightDollarsAnHour);
 			listOfRates.Add(sixteenDollarsAnHour);
 
@@ -212,9 +244,9 @@ namespace BabysitterKata_UnitTests
 		{
 			//Arrange
 			int expectedPaymentInDollars = 140;
-			Rate twelveDollarsAnHour = new Rate() { startTime = 0, endTime = 5, dollarsPerHour = 12 };
-			Rate eightDollarsAnHour = new Rate() { startTime = 5, endTime = 7, dollarsPerHour = 8 };
-			Rate sixteenDollarsAnHour = new Rate() { startTime = 7, endTime = 11, dollarsPerHour = 16 };
+			Rate twelveDollarsAnHour = new Rate() { rateStartTime = 0, rateEndTime = 5, dollarsPerHour = 12 };
+			Rate eightDollarsAnHour = new Rate() { rateStartTime = 5, rateEndTime = 7, dollarsPerHour = 8 };
+			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = 7, rateEndTime = 11, dollarsPerHour = 16 };
 
 			listOfRates.Add(twelveDollarsAnHour);
 			listOfRates.Add(eightDollarsAnHour);

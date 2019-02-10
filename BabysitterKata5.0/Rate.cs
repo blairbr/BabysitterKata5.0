@@ -8,8 +8,8 @@ namespace BabysitterKata5._0
 {
 	public class Rate
 	{
-		public int startTime { get; set; }
-		public int endTime { get; set; }
+		public int rateStartTime { get; set; }
+		public int rateEndTime { get; set; }
 		public int dollarsPerHour { get; set; }
 	}
 }

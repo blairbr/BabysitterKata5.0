@@ -11,31 +11,31 @@ namespace BabysitterKata5._0
 		public const int fourAM = 11;
 		public const int fivePM = 0;
 
-		public void ValidateUserInput(int startTime, int endTime)
+		public void ValidateUserInput(int rateStartTime, int rateEndTime)
 		{
-			bool validEndTime = EndTimeIsFourAmOrEarlier(endTime);
-			bool validStartTime = StartTimeIsFivePmOrLater(startTime);
-			bool startAndEndAreInChronologicalOrder = StartTimeIsBeforeEndTime(startTime, endTime);
+			bool validrateEndTime = rateEndTimeIsFourAmOrEarlier(rateEndTime);
+			bool validrateStartTime = rateStartTimeIsFivePmOrLater(rateStartTime);
+			bool startAndEndAreInChronologicalOrder = rateStartTimeIsBeforerateEndTime(rateStartTime, rateEndTime);
 
-			if (!(validEndTime && validStartTime && startAndEndAreInChronologicalOrder))
+			if (!(validrateEndTime && validrateStartTime && startAndEndAreInChronologicalOrder))
 			{
 				ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
 				throw ex; 
 			}
 		}
-		public bool StartTimeIsFivePmOrLater(int startTime)
+		public bool rateStartTimeIsFivePmOrLater(int rateStartTime)
 		{
-			return startTime >= fivePM;
+			return rateStartTime >= fivePM;
 		}
 
-		public bool EndTimeIsFourAmOrEarlier(int endTime)
+		public bool rateEndTimeIsFourAmOrEarlier(int rateEndTime)
 		{
-			return endTime <= fourAM;
+			return rateEndTime <= fourAM;
 		}
 
-		public bool StartTimeIsBeforeEndTime(int startTime, int endTime)
+		public bool rateStartTimeIsBeforerateEndTime(int rateStartTime, int rateEndTime)
 		{
-			return endTime > startTime; 
+			return rateEndTime > rateStartTime; 
 		}
 	}
 }

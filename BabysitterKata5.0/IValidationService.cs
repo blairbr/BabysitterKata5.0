@@ -2,12 +2,12 @@
 {
 	public interface IValidationService
 	{
-		void ValidateUserInput(int startTime, int endTime);
+		void ValidateUserInput(int rateStartTime, int rateEndTime);
 
-		bool StartTimeIsFivePmOrLater(int startTime);
+		bool rateStartTimeIsFivePmOrLater(int rateStartTime);
 
-		bool EndTimeIsFourAmOrEarlier(int endTime);
+		bool rateEndTimeIsFourAmOrEarlier(int rateEndTime);
 
-		bool StartTimeIsBeforeEndTime(int startTime, int endTime);
+		bool rateStartTimeIsBeforerateEndTime(int rateStartTime, int rateEndTime);
 	}
 }

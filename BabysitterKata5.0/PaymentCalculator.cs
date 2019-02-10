@@ -14,7 +14,19 @@ namespace BabysitterKata5._0
 			int totalPayment = 0;
 			foreach (Rate rate in rates)
 			{
-				totalPayment = totalPayment + rate.dollarsPerHour * (rate.endTime - rate.startTime);
+				totalPayment = totalPayment + rate.dollarsPerHour * (rate.rateEndTime - rate.rateStartTime);
+			}
+			return totalPayment;
+		}
+
+		public int CalculateBabysitterPaymentFromBabySitterContract(BabySitterContract babySitterContract)
+		{
+			int hoursWorked = babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime;
+
+			int totalPayment = 0;
+			foreach (Rate rate in babySitterContract.ListOfRatesInBabysitterContract)
+			{
+				totalPayment = totalPayment + rate.dollarsPerHour * (hoursWorked);
 			}
 			return totalPayment;
 		}
