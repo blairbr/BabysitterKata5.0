@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BabysitterKata5._0;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -8,12 +9,22 @@ namespace BabysitterKata_UnitTests
 	public class ValidationUnitTests
 	{
 		private InputValidation validationService;
+		private BabySitterContract babySitterContract;
+		private List<Rate> listOfRates;
 
 		[TestInitialize]
 		public void Setup()
 		{
 			//Arrange
 			validationService = new InputValidation();
+			babySitterContract = new BabySitterContract();
+
+			listOfRates = new List<Rate>();
+			Rate fifteenDollarRate = new Rate() { rateStartTime = TimeConversion.FivePm, rateEndTime = TimeConversion.ElevenPm, dollarsPerHour = 15 };
+			Rate twentyDollarRate = new Rate() { rateStartTime = TimeConversion.ElevenPm, rateEndTime = TimeConversion.FourAm, dollarsPerHour = 20 };
+			listOfRates.Add(fifteenDollarRate);
+			listOfRates.Add(twentyDollarRate);
+			babySitterContract.ListOfRatesInBabysitterContract = listOfRates;
 		}
 
 		[TestMethod]
@@ -65,11 +76,11 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfValidateUserInputParametersAreNotValid()
 		{
 			//arrange with out of range variables
-			int babysitterStartTime = TimeConversion.ThreePm;
-			int babysitterEndTime = TimeConversion.FiveAm;
+			babySitterContract.BabysitterStartTime = TimeConversion.ThreePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FiveAm;
 
 			//act
-			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
+			validationService.ValidateUserInput(babySitterContract);
 		}
 
 		[TestMethod]
@@ -77,11 +88,11 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfBabysitterStartTimeAfterBabysitterEndTime()
 		{
 			//arrange with out of range variables
-			int babysitterStartTime = TimeConversion.ThreePm;
-			int babysitterEndTime = TimeConversion.FiveAm;
+			babySitterContract.BabysitterStartTime = TimeConversion.ThreePm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FiveAm;
 
 			//act
-			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
+			validationService.ValidateUserInput(babySitterContract);
 		}
 
 		[TestMethod]
@@ -89,11 +100,11 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfBabysitterStartTimeBefore5pm()
 		{
 			//arrange with out of range variables
-			int babysitterStartTime = TimeConversion.TwoPm;
-			int babysitterEndTime = TimeConversion.TwoAm;
+			babySitterContract.BabysitterStartTime = TimeConversion.TwoPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.TwoAm;
 
 			//act
-			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
+			validationService.ValidateUserInput(babySitterContract);
 		}
 
 		[TestMethod]
@@ -101,11 +112,11 @@ namespace BabysitterKata_UnitTests
 		public void CheckThatExceptionIsThrownIfBabysitterEndTimeAfter4am()
 		{
 			//arrange with out of range variables
-			int babysitterStartTime = TimeConversion.SixPm;
-			int babysitterEndTime = TimeConversion.FiveAm;
+			babySitterContract.BabysitterStartTime = TimeConversion.SixPm;
+			babySitterContract.BabysitterEndTime = TimeConversion.FiveAm;
 
 			//act
-			validationService.ValidateUserInput(babysitterStartTime, babysitterEndTime);
+			validationService.ValidateUserInput(babySitterContract);
 		}
 	}
 }
