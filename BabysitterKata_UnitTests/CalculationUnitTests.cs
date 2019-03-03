@@ -54,7 +54,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From7pmToMidnightAndEarnsFifteenDollarsAnHourFoursHoursAndTwentyDollarsAnHourForTheLastHour()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 80;
+			decimal expectedPaymentInDollars = 80;
 			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
@@ -69,7 +69,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From10pmTo12amAndEarns15DollarsAnHourForOneHourAndTwentyDollarsAnHourForTheSecondHour()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 35;
+			decimal expectedPaymentInDollars = 35;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
@@ -85,7 +85,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_FromMidnightTo3amAndEarns20DollarsAnHourForThreeHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 60;
+			decimal expectedPaymentInDollars = 60;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.Midnight;
 			babySitterContract.BabysitterEndTime = TimeConversion.ThreeAm;
@@ -101,7 +101,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From5PmTo9pmAndEarns15DollarsAnHourForFourHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 60;
+			decimal expectedPaymentInDollars = 60;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.NinePm;
@@ -117,7 +117,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From5pmTo11pmAndEarnsFifteenDollarsAnHourForSixHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 90;
+			decimal expectedPaymentInDollars = 90;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
@@ -133,7 +133,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From11pmTo4amAndEarnsTwentyDollarsAnHourForFiveHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 100;
+			decimal expectedPaymentInDollars = 100;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.ElevenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
@@ -150,7 +150,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From7pmTo4amAndEarns15DollarsAnHourForFourHoursAndTwentyDollarsAnHourForFiveHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 160;
+			decimal expectedPaymentInDollars = 160;
 			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
@@ -166,7 +166,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_C_From5pmTo9pmAndEarns21DollarsAnHourForFourHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 84;
+			decimal expectedPaymentInDollars = 84;
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.NinePm;
 
@@ -181,7 +181,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_C_From9pmTo4amAndEarns15DollarsAnHourFor7Hours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 105;
+			decimal expectedPaymentInDollars = 105;
 			babySitterContract.BabysitterStartTime = TimeConversion.NinePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
@@ -197,7 +197,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_C_From8pmTo11pmAndEarns21DollarsAnHourForOneHourAnd15DollarsAnHourForTwoHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 51;
+			decimal expectedPaymentInDollars = 51;
 			babySitterContract.BabysitterStartTime = TimeConversion.EightPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
 
@@ -214,7 +214,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From5pmTo10pmAndEarns12DollarsAnHourFor5Hours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 60;
+			decimal expectedPaymentInDollars = 60;
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.TenPm;
 
@@ -230,7 +230,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From10pmTo12amAndEarns8DollarsAnHourForTwoHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 16;
+			decimal expectedPaymentInDollars = 16;
 			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 
@@ -246,7 +246,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From12amTo4amAndEarns16DollarsAnHourForFourHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 64;
+			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = TimeConversion.Midnight;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
@@ -261,7 +261,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From8pmTo11pmAndEarns12DollarsAnHourForTheFirst2HoursAnd8DollarsAnHourForTheThirdHour()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 32;
+			decimal expectedPaymentInDollars = 32;
 
 			babySitterContract.BabysitterStartTime = TimeConversion.EightPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.ElevenPm;
@@ -278,7 +278,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From10pmTo3amAndEarns8DollarsAnHourForTheFirst2HoursAnd16DollarsAnHourForTheLastThreeHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 64;
+			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = TimeConversion.TenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.ThreeAm;
 
@@ -295,7 +295,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From5pmTo4amAndEarns12DollarsAnHourForTheFirst5HoursAnd8DollarsAnHourForTheNextTwoHoursAnd16DollarsAnHourForTheFinalFourHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 140;
+			decimal expectedPaymentInDollars = 140;
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 
@@ -310,7 +310,7 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From6pmToMidnightAndEarns12DollarsAnHourForTheFirst4HoursAndEightDollarsAnHourForTheLastTwoHours()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 64;
+			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = TimeConversion.SixPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 

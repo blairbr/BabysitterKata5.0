@@ -10,7 +10,7 @@ namespace BabysitterKata5._0
 {
 	public class PaymentCalculator
 	{
-		int hoursWorkedAtCurrentRate = 0;
+		decimal hoursWorkedAtCurrentRate = 0;
 
 		public Invoice CalculateBabysitterPaymentFromBabySitterContract(BabySitterContract babySitterContract)
 		{
@@ -31,7 +31,7 @@ namespace BabysitterKata5._0
 				// Set up variables
 				bool babySitterStartTimeisInRateBlock;
 				bool babySitterEndTimeisInRateBlock;
-				int ratePayment = 0;
+				decimal ratePayment = 0;
 
 				bool babysitterWorksDuringOnlyOneRate = DoesBabysitterWorkDuringOnlyOneRate(babySitterContract, rate);
 
@@ -85,7 +85,7 @@ namespace BabysitterKata5._0
 			        babySitterContract.BabysitterEndTime <= rate.rateEndTime);
 		}
 
-		private int CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(Invoice invoice, BabySitterContract babySitterContract, Rate rate)
+		private decimal CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(Invoice invoice, BabySitterContract babySitterContract, Rate rate)
 		{
 				invoice.totalPayment = rate.dollarsPerHour*
 				                       (babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime);

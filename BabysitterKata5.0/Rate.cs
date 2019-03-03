@@ -10,6 +10,6 @@ namespace BabysitterKata5._0
 	{
 		public int rateStartTime { get; set; }
 		public int rateEndTime { get; set; }
-		public int dollarsPerHour { get; set; }
+		public decimal dollarsPerHour { get; set; }
 	}
 }

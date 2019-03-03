@@ -12,7 +12,7 @@ namespace BabysitterKata5._0
 		public const string validationFailed = "Validation failed. Please enter valid input.";
 		public const string validationSucceeded = "Validation successful.";
 		public string response { get; set; }
-		public int totalPayment { get; set; }
+		public decimal totalPayment { get; set; }
 	}
 
 	
