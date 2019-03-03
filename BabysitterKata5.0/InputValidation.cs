@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,8 +9,9 @@ namespace BabysitterKata5._0
 {
 	public class InputValidation
 	{
-		public void ValidateUserInput(BabySitterContract babySitterContract)
+		public string ValidateUserInput(BabySitterContract babySitterContract)
 		{
+			string response = Invoice.validationSucceeded;
 			bool validateEndTime = BabysitterEndTimeIsFourAmOrEarlier(babySitterContract.BabysitterEndTime);
 			bool validateStartTime = BabysitterStartTimeIsFivePmOrLater(babySitterContract.BabysitterStartTime);
 			bool startAndEndAreInChronologicalOrder = BabysitterStartTimeIsBeforeBabysitterEndTime(babySitterContract.BabysitterStartTime, babySitterContract.BabysitterEndTime);
@@ -17,9 +19,13 @@ namespace BabysitterKata5._0
 
 			if (!(validateEndTime && validateStartTime && startAndEndAreInChronologicalOrder && allRateStartTimesAreBeforeRateEndTimes))
 			{
-				ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
-				throw ex;
+				response = Invoice.validationFailed;
+				//ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
+				//throw ex;
+				//debug this and see if 'validation failed' response ever gets returned.
 			}
+
+			return response;
 		}
 		public bool BabysitterStartTimeIsFivePmOrLater(int babysitterStartTime)
 		{

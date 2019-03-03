@@ -18,6 +18,8 @@ namespace BabysitterKata_UnitTests
 		private List<Rate> listOfRates_FamilyB;
 		private List<Rate> listOfRates_FamilyC;
 
+		//private InputValidation validation;
+
 		[TestInitialize]
 		public void Setup()
 		{
@@ -59,10 +61,12 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
+			string successMessage = Invoice.validationSucceeded;
+
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -76,9 +80,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -92,9 +96,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -108,9 +112,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -124,9 +128,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -141,9 +145,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -156,9 +160,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		///Family C pays $21 per hour before 9pm, then $15 the rest of the night
@@ -172,9 +176,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -188,9 +192,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -203,9 +207,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyC;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
@@ -221,9 +225,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -236,9 +240,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
@@ -252,9 +256,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		[TestMethod]
@@ -268,9 +272,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
@@ -285,9 +289,9 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 
 
@@ -301,11 +305,11 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
-		//•	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
+		//	Family B pays $12 per hour before 10pm, $8 between 10 and 12, and $16 the rest of the night
 		[TestMethod]
 		public void CheckBabysitterWorksForFamily_B_From6pmToMidnightAndEarns12DollarsAnHourForTheFirst4HoursAndEightDollarsAnHourForTheLastTwoHours()
 		{
@@ -316,9 +320,9 @@ namespace BabysitterKata_UnitTests
 
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
 			//Act
-			int calculatedPayment = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
+			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
-			Assert.AreEqual(expectedPaymentInDollars, calculatedPayment);
+			Assert.AreEqual(expectedPaymentInDollars, invoice.totalPayment);
 		}
 	}
 }

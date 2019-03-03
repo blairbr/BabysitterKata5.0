@@ -4,19 +4,31 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//public PaymentCalculator(InputValidation validation)
+//{
+//	this.validation = validation;
+//}
 namespace BabysitterKata5._0
 {
 	public class PaymentCalculator
 	{
-		public int CalculateBabysitterPaymentFromBabySitterContract(BabySitterContract babySitterContract)
+		public Invoice CalculateBabysitterPaymentFromBabySitterContract(BabySitterContract babySitterContract)
 		{
-			int hoursWorkedAtCurrentRate = 0;
+			Invoice invoice = new Invoice();
+			InputValidation validation = new InputValidation();
+			invoice.response = validation.ValidateUserInput(babySitterContract);
 
-			int totalPayment = 0;
+			int hoursWorkedAtCurrentRate = 0;
+			invoice.totalPayment = 0;
 			bool stillWorking = false;
 			foreach (Rate rate in babySitterContract.ListOfRatesInBabysitterContract)
 			{
+				if (invoice.response == Invoice.validationFailed)
+				{
+					invoice.totalPayment = -200;  // ridiculous number so you know that it failed validation
+					break;
+				}
+
 				// Set up variables
 				int ratePayment = 0;
 				bool babySitterStartTimeisInRateBlock = false;
@@ -39,7 +51,7 @@ namespace BabysitterKata5._0
 				//if the whole time the babysitter works is in a single rate, break out of loop and return total payment.
 				if (babySitterStartTimeisInRateBlock && babySitterEndTimeisInRateBlock)
 				{
-					totalPayment = rate.dollarsPerHour *
+					invoice.totalPayment = rate.dollarsPerHour *
 								   (babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime);
 					break;
 				}
@@ -66,10 +78,10 @@ namespace BabysitterKata5._0
 					hoursWorkedAtCurrentRate = rate.rateEndTime - rate.rateStartTime;
 					ratePayment = hoursWorkedAtCurrentRate * rate.dollarsPerHour;
 				}
-				totalPayment = totalPayment + ratePayment;
+				invoice.totalPayment = invoice.totalPayment + ratePayment;
 			}
 
-			return totalPayment;
+			return invoice;
 		}
 	}
 }
