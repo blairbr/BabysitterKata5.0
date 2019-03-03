@@ -158,7 +158,6 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_C_From5pmTo9pmAndInvoiceContainsValidationSuccessMessage()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 84;
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.NinePm;
 
@@ -173,7 +172,6 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_B_From5pmTo4amAndInvoiceContainsValidationSuccessMessage()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 140;
 			babySitterContract.BabysitterStartTime = TimeConversion.FivePm;
 			babySitterContract.BabysitterEndTime = TimeConversion.FourAm;
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyB;
@@ -189,7 +187,6 @@ namespace BabysitterKata_UnitTests
 		public void CheckBabysitterWorksForFamily_A_From7pmToMidnightAndInvoiceContainsValidationSuccessMessage()
 		{
 			//Arrange
-			int expectedPaymentInDollars = 80;
 			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;

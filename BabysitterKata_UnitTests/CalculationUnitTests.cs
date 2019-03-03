@@ -18,8 +18,6 @@ namespace BabysitterKata_UnitTests
 		private List<Rate> listOfRates_FamilyB;
 		private List<Rate> listOfRates_FamilyC;
 
-		//private InputValidation validation;
-
 		[TestInitialize]
 		public void Setup()
 		{
@@ -60,8 +58,6 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.BabysitterStartTime = TimeConversion.SevenPm;
 			babySitterContract.BabysitterEndTime = TimeConversion.Midnight;
 			babySitterContract.ListOfRatesInBabysitterContract = listOfRates_FamilyA;
-
-			string successMessage = Invoice.validationSucceeded;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);

@@ -20,9 +20,6 @@ namespace BabysitterKata5._0
 			if (!(validateEndTime && validateStartTime && startAndEndAreInChronologicalOrder && allRateStartTimesAreBeforeRateEndTimes))
 			{
 				response = Invoice.validationFailed;
-				//ArgumentOutOfRangeException ex = new ArgumentOutOfRangeException();
-				//throw ex;
-				//debug this and see if 'validation failed' response ever gets returned.
 			}
 
 			return response;
