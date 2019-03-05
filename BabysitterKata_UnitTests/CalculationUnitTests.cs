@@ -10,12 +10,12 @@ namespace BabysitterKata_UnitTests
 	[TestFixture]
 	public class CalculationUnitTests
 	{
-		private PaymentCalculator calculator;
+		private ICalculator calculator;
 		private BabySitterContract babySitterContract;
 
-		private static List<Rate> listOfRates_FamilyA;
-		private static List<Rate> listOfRates_FamilyB;
-		private static List<Rate> listOfRates_FamilyC;
+		private static List<Rate> FamilyA_Rates;
+		private static List<Rate> FamilyB_Rates;
+		private static List<Rate> FamilyC_Rates;
 
 		private Mock<IBabySitterValidation> validator;
 
@@ -27,29 +27,29 @@ namespace BabysitterKata_UnitTests
 			babySitterContract = new BabySitterContract();
 
 			// Initialize Family A Rate List
-			listOfRates_FamilyA = new List<Rate>();
+			FamilyA_Rates = new List<Rate>();
 			Rate fifteenDollarRate = new Rate() { rateStartTime = (int)Time.FivePm, rateEndTime = (int)Time.ElevenPm, dollarsPerHour = 15 };
 			Rate twentyDollarRate = new Rate() { rateStartTime = (int)Time.ElevenPm, rateEndTime = (int)Time.FourAm, dollarsPerHour = 20 };
-			listOfRates_FamilyA.Add(fifteenDollarRate);
-			listOfRates_FamilyA.Add(twentyDollarRate);
+			FamilyA_Rates.Add(fifteenDollarRate);
+			FamilyA_Rates.Add(twentyDollarRate);
 
 			// Initialize Family B Rate List
-			listOfRates_FamilyB = new List<Rate>();
+			FamilyB_Rates = new List<Rate>();
 			Rate twelveDollarsAnHour = new Rate() { rateStartTime = (int)Time.FivePm, rateEndTime = (int)Time.TenPm, dollarsPerHour = 12 };
 			Rate eightDollarsAnHour = new Rate() { rateStartTime = (int)Time.TenPm, rateEndTime = (int)Time.Midnight, dollarsPerHour = 8 };
 			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = (int)Time.Midnight, rateEndTime = (int)Time.FourAm, dollarsPerHour = 16 };
 
-			listOfRates_FamilyB.Add(twelveDollarsAnHour);
-			listOfRates_FamilyB.Add(eightDollarsAnHour);
-			listOfRates_FamilyB.Add(sixteenDollarsAnHour);
+			FamilyB_Rates.Add(twelveDollarsAnHour);
+			FamilyB_Rates.Add(eightDollarsAnHour);
+			FamilyB_Rates.Add(sixteenDollarsAnHour);
 
 			// Initialize Family C Rate List
-			listOfRates_FamilyC = new List<Rate>();
+			FamilyC_Rates = new List<Rate>();
 			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = (int)Time.FivePm, rateEndTime = (int)Time.NinePm, dollarsPerHour = 21 };
 			Rate fifteenDollarsAnHour = new Rate() { rateStartTime = (int)Time.NinePm, rateEndTime = (int)Time.FourAm, dollarsPerHour = 15 };
 
-			listOfRates_FamilyC.Add(fifteenDollarsAnHour);
-			listOfRates_FamilyC.Add(twentyOneDollarsAnHour);
+			FamilyC_Rates.Add(fifteenDollarsAnHour);
+			FamilyC_Rates.Add(twentyOneDollarsAnHour);
 			validator.Setup(val => val.ValidateUserInput(It.IsAny<BabySitterContract>())).Returns(true);
 		}
 
@@ -60,7 +60,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 80;
 			babySitterContract.BabysitterStartTime = (int)Time.SevenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.Midnight;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -75,7 +75,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 35;
 			babySitterContract.BabysitterStartTime = (int)Time.TenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.Midnight;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -90,7 +90,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 60;
 			babySitterContract.BabysitterStartTime = (int)Time.Midnight;
 			babySitterContract.BabysitterEndTime = (int)Time.ThreeAm;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -105,7 +105,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 60;
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.NinePm;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -120,7 +120,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 90;
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.ElevenPm;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -136,7 +136,7 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.BabysitterStartTime = (int)Time.ElevenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
 
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -151,7 +151,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 160;
 			babySitterContract.BabysitterStartTime = (int)Time.SevenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -166,7 +166,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 84;
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.NinePm;
-			babySitterContract.Rates = listOfRates_FamilyC;
+			babySitterContract.Rates = FamilyC_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -180,7 +180,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 105;
 			babySitterContract.BabysitterStartTime = (int)Time.NinePm;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
-			babySitterContract.Rates = listOfRates_FamilyC;
+			babySitterContract.Rates = FamilyC_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -195,7 +195,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 51;
 			babySitterContract.BabysitterStartTime = (int)Time.EightPm;
 			babySitterContract.BabysitterEndTime = (int)Time.ElevenPm;
-			babySitterContract.Rates = listOfRates_FamilyC;
+			babySitterContract.Rates = FamilyC_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -211,7 +211,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 60;
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.TenPm;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -226,7 +226,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 16;
 			babySitterContract.BabysitterStartTime = (int)Time.TenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.Midnight;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -241,7 +241,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = (int)Time.Midnight;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -256,7 +256,7 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.BabysitterStartTime = (int)Time.EightPm;
 			babySitterContract.BabysitterEndTime = (int)Time.ElevenPm;
 
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -271,7 +271,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = (int)Time.TenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.ThreeAm;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -287,7 +287,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 140;
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -301,7 +301,7 @@ namespace BabysitterKata_UnitTests
 			decimal expectedPaymentInDollars = 64;
 			babySitterContract.BabysitterStartTime = (int)Time.SixPm;
 			babySitterContract.BabysitterEndTime = (int)Time.Midnight;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert

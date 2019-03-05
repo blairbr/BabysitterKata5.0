@@ -8,8 +8,6 @@
 
 		bool BabysitterStartTimeIsBeforeBabysitterEndTime(int babysitterStartTime, int babysitterEndTime);
 
-		bool AllRateStartTimesAreBeforeRateEndTimes(BabySitterContract babySitterContract);
-
 		bool BabysitterEndTimeIsFourAmOrEarlier(int endTime);
 	}
 }

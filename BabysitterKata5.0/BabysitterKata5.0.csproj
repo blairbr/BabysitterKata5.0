@@ -45,6 +45,7 @@
     <Compile Include="Enumerations\InvoiceValidationResponse.cs" />
     <Compile Include="Enumerations\Time.cs" />
     <Compile Include="Interfaces\IBabySitterValidation.cs" />
+    <Compile Include="Interfaces\ICalculator.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="PaymentCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

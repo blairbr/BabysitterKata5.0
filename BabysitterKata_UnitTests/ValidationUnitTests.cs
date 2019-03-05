@@ -12,11 +12,11 @@ namespace BabysitterKata_UnitTests
 	{
 		private BabySitterContract babySitterContract;
 		private List<Rate> listOfRates;
-		private PaymentCalculator calculator;
-		private List<Rate> listOfRates_FamilyA;
-		private List<Rate> listOfRates_FamilyB;
-		private List<Rate> listOfRates_FamilyC;
+		private List<Rate> FamilyA_Rates;
+		private List<Rate> FamilyB_Rates;
+		private List<Rate> FamilyC_Rates;
 		private IBabySitterValidation validationService;
+		private ICalculator calculator;
 
 		[SetUp]
 		public void Setup()
@@ -34,25 +34,25 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.Rates = listOfRates;
 
 			// Initialize Family A Rate List
-			listOfRates_FamilyA = new List<Rate>();
-			listOfRates_FamilyA.Add(fifteenDollarRate);
-			listOfRates_FamilyA.Add(twentyDollarRate);
+			FamilyA_Rates = new List<Rate>();
+			FamilyA_Rates.Add(fifteenDollarRate);
+			FamilyA_Rates.Add(twentyDollarRate);
 
 			// Initialize Family B Rate List
-			listOfRates_FamilyB = new List<Rate>();
+			FamilyB_Rates = new List<Rate>();
 			Rate twelveDollarsAnHour = new Rate() { rateStartTime = (int)Time.FivePm, rateEndTime = (int)Time.TenPm, dollarsPerHour = 12 };
 			Rate eightDollarsAnHour = new Rate() { rateStartTime = (int)Time.TenPm, rateEndTime = (int)Time.Midnight, dollarsPerHour = 8 };
 			Rate sixteenDollarsAnHour = new Rate() { rateStartTime = (int)Time.Midnight, rateEndTime = (int)Time.FourAm, dollarsPerHour = 16 };
 
-			listOfRates_FamilyB.Add(twelveDollarsAnHour);
-			listOfRates_FamilyB.Add(eightDollarsAnHour);
-			listOfRates_FamilyB.Add(sixteenDollarsAnHour);
+			FamilyB_Rates.Add(twelveDollarsAnHour);
+			FamilyB_Rates.Add(eightDollarsAnHour);
+			FamilyB_Rates.Add(sixteenDollarsAnHour);
 
 			// Initialize Family C Rate List
-			listOfRates_FamilyC = new List<Rate>();
+			FamilyC_Rates = new List<Rate>();
 			Rate twentyOneDollarsAnHour = new Rate() { rateStartTime = (int)Time.FivePm, rateEndTime = (int)Time.NinePm, dollarsPerHour = 21 };
-			listOfRates_FamilyC.Add(fifteenDollarRate);
-			listOfRates_FamilyC.Add(twentyOneDollarsAnHour);
+			FamilyC_Rates.Add(fifteenDollarRate);
+			FamilyC_Rates.Add(twentyOneDollarsAnHour);
 		}
 
 		[Test]
@@ -162,7 +162,7 @@ namespace BabysitterKata_UnitTests
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.NinePm;
 
-			babySitterContract.Rates = listOfRates_FamilyC;
+			babySitterContract.Rates = FamilyC_Rates;
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
 			//Assert
@@ -175,7 +175,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
 			babySitterContract.BabysitterEndTime = (int)Time.FourAm;
-			babySitterContract.Rates = listOfRates_FamilyB;
+			babySitterContract.Rates = FamilyB_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);
@@ -190,7 +190,7 @@ namespace BabysitterKata_UnitTests
 			//Arrange
 			babySitterContract.BabysitterStartTime = (int)Time.SevenPm;
 			babySitterContract.BabysitterEndTime = (int)Time.Midnight;
-			babySitterContract.Rates = listOfRates_FamilyA;
+			babySitterContract.Rates = FamilyA_Rates;
 
 			//Act
 			Invoice invoice = calculator.CalculateBabysitterPaymentFromBabySitterContract(babySitterContract);

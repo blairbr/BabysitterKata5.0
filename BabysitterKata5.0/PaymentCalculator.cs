@@ -3,7 +3,7 @@
 
 namespace BabysitterKata5._0
 {
-	public class PaymentCalculator
+	public class PaymentCalculator : ICalculator
 	{
 		private readonly IBabySitterValidation validation;
 
@@ -25,7 +25,7 @@ namespace BabysitterKata5._0
 			return invoice;
 		}
 
-		private void CalculateTotalBabysitterPayment(BabySitterContract babySitterContract, Invoice invoice)
+		public void CalculateTotalBabysitterPayment(BabySitterContract babySitterContract, Invoice invoice)
 		{
 			bool stillWorking = false;
 			foreach (Rate rate in babySitterContract.Rates)
@@ -72,7 +72,7 @@ namespace BabysitterKata5._0
 			}
 		}
 
-		private Invoice InitializeInvoice(BabySitterContract babySitterContract)
+		public Invoice InitializeInvoice(BabySitterContract babySitterContract)
 		{
 			Invoice invoice = new Invoice()
 			{
@@ -82,19 +82,19 @@ namespace BabysitterKata5._0
 			return invoice;
 		}
 
-		private bool DetermineIfBabysitterStartTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
+		public bool DetermineIfBabysitterStartTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
 		{
 			return (babySitterContract.BabysitterStartTime >= rate.rateStartTime &&
 					babySitterContract.BabysitterStartTime < rate.rateEndTime);
 		}
 
-		private bool DetermineIfBabysitterEndTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
+		public bool DetermineIfBabysitterEndTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
 		{
 			return (babySitterContract.BabysitterEndTime > rate.rateStartTime &&
 					babySitterContract.BabysitterEndTime <= rate.rateEndTime);
 		}
 
-		private decimal CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(Invoice invoice, BabySitterContract babySitterContract, Rate rate)
+		public decimal CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(Invoice invoice, BabySitterContract babySitterContract, Rate rate)
 		{
 			invoice.totalPayment = rate.dollarsPerHour *
 								   (babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime);
