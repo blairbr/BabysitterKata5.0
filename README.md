@@ -10,5 +10,5 @@ To Build:
  
 To Run Unit Tests:
  1) Open Developer Command Prompt for Visual Studio
- 2) Navigate here > BabysitterKata5.0/BabysitterKata_UnitTests\bin\Debug
+ 2) Navigate here > BabysitterKata5.0\BabysitterKata_UnitTests\bin\Debug
  3) Run command vstest.console.exe BabysitterKata_UnitTests.dll
