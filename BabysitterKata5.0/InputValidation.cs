@@ -1,39 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BabysitterKata5._0.Enumerations;
+using BabysitterKata5._0.Interfaces;
 
 namespace BabysitterKata5._0
 {
-	public class InputValidation
+	public class InputValidation : IBabySitterValidation
 	{
-		public string ValidateUserInput(BabySitterContract babySitterContract)
+		public bool ValidateUserInput(BabySitterContract babySitterContract)
 		{
-			string response = Invoice.validationSucceeded;
 			bool validateEndTime = BabysitterEndTimeIsFourAmOrEarlier(babySitterContract.BabysitterEndTime);
 			bool validateStartTime = BabysitterStartTimeIsFivePmOrLater(babySitterContract.BabysitterStartTime);
 			bool startAndEndAreInChronologicalOrder = BabysitterStartTimeIsBeforeBabysitterEndTime(babySitterContract.BabysitterStartTime, babySitterContract.BabysitterEndTime);
 			bool allRateStartTimesAreBeforeRateEndTimes = AllRateStartTimesAreBeforeRateEndTimes(babySitterContract);
 
-			if (!(validateEndTime && validateStartTime && startAndEndAreInChronologicalOrder && allRateStartTimesAreBeforeRateEndTimes))
-			{
-				response = Invoice.validationFailed;
-			}
-
-			return response;
+			return validateEndTime && validateStartTime 
+			                       && startAndEndAreInChronologicalOrder 
+			                       && allRateStartTimesAreBeforeRateEndTimes;
 		}
 		public bool BabysitterStartTimeIsFivePmOrLater(int babysitterStartTime)
 		{
-			return babysitterStartTime >= TimeConversion.FivePm;
+			return babysitterStartTime >= (int)Time.FivePm;
 		}
-
+		
 		public bool BabysitterEndTimeIsFourAmOrEarlier(int babysitterEndTime)
 		{
-			return babysitterEndTime <= TimeConversion.FourAm;
+			return babysitterEndTime <= (int)Time.FourAm;
 		}
-
+		
 		public bool BabysitterStartTimeIsBeforeBabysitterEndTime(int babysitterStartTime, int babysitterEndTime)
 		{
 			return babysitterStartTime < babysitterEndTime;
@@ -42,7 +34,7 @@ namespace BabysitterKata5._0
 		public bool AllRateStartTimesAreBeforeRateEndTimes(BabySitterContract babySitterContract)
 		{
 			bool result = true;
-			foreach (Rate rate in babySitterContract.ListOfRatesInBabysitterContract)
+			foreach (Rate rate in babySitterContract.Rates)
 			{
 				if (rate.rateEndTime <= rate.rateStartTime)
 				{
@@ -52,6 +44,6 @@ namespace BabysitterKata5._0
 			}
 			return result;
 		}
-
+		
 	}
 }

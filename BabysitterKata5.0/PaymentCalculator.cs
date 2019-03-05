@@ -1,48 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using BabysitterKata5._0.Interfaces;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BabysitterKata5._0
 {
 	public class PaymentCalculator
 	{
-		decimal hoursWorkedAtCurrentRate = 0;
+		private readonly IBabySitterValidation validation;
 
+		public PaymentCalculator(IBabySitterValidation validation)
+		{
+			this.validation = validation;
+		}
 		public Invoice CalculateBabysitterPaymentFromBabySitterContract(BabySitterContract babySitterContract)
 		{
-			Invoice invoice = new Invoice();
-			InputValidation validation = new InputValidation();
-			invoice.totalPayment = 0;
-			hoursWorkedAtCurrentRate = 0;
-			bool stillWorking = false;
-
-			invoice.response = validation.ValidateUserInput(babySitterContract);
-			if (invoice.response == Invoice.validationFailed)
+			var invoice = InitializeInvoice(babySitterContract);
+			//if validation fails, return the invoice and do not calculate total payment
+			if (!invoice.response)
 			{
 				return invoice;
 			}
 
-			foreach (Rate rate in babySitterContract.ListOfRatesInBabysitterContract)
+			CalculateTotalBabysitterPayment(babySitterContract, invoice);
+
+			return invoice;
+		}
+
+		private void CalculateTotalBabysitterPayment(BabySitterContract babySitterContract, Invoice invoice)
+		{
+			bool stillWorking = false;
+			foreach (Rate rate in babySitterContract.Rates)
 			{
 				// Set up variables
+				decimal hoursWorkedAtCurrentRate;
 				bool babySitterStartTimeisInRateBlock;
 				bool babySitterEndTimeisInRateBlock;
-				decimal ratePayment = 0;
-
-				bool babysitterWorksDuringOnlyOneRate = DoesBabysitterWorkDuringOnlyOneRate(babySitterContract, rate);
+				decimal ratePayment = decimal.Zero;
 
 				babySitterStartTimeisInRateBlock = DetermineIfBabysitterStartTimeIsInRateBlock(babySitterContract, rate);
 				babySitterEndTimeisInRateBlock = DetermineIfBabysitterEndTimeIsInRateBlock(babySitterContract, rate);
 
-				//Logic
-				if (babysitterWorksDuringOnlyOneRate)
+				//if the start and end time are both in a single rate block, update payment and return the invoice
+				if (babySitterStartTimeisInRateBlock && babySitterEndTimeisInRateBlock)
 				{
 					invoice.totalPayment = CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(invoice, babySitterContract, rate);
-					break;
+					return;
 				}
 
 				// otherwise, if the time the babysitter is there spans across multiple rates
@@ -67,36 +69,37 @@ namespace BabysitterKata5._0
 					hoursWorkedAtCurrentRate = rate.rateEndTime - rate.rateStartTime;
 					ratePayment = hoursWorkedAtCurrentRate * rate.dollarsPerHour;
 				}
-				invoice.totalPayment = invoice.totalPayment + ratePayment;
+				invoice.totalPayment += ratePayment;
 			}
+		}
 
+		private Invoice InitializeInvoice(BabySitterContract babySitterContract)
+		{
+			Invoice invoice = new Invoice()
+			{
+				totalPayment = 0,
+				response = validation.ValidateUserInput(babySitterContract)
+			};
 			return invoice;
 		}
 
 		private bool DetermineIfBabysitterStartTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
 		{
 			return (babySitterContract.BabysitterStartTime >= rate.rateStartTime &&
-			        babySitterContract.BabysitterStartTime < rate.rateEndTime);
+					babySitterContract.BabysitterStartTime < rate.rateEndTime);
 		}
 
 		private bool DetermineIfBabysitterEndTimeIsInRateBlock(BabySitterContract babySitterContract, Rate rate)
 		{
 			return (babySitterContract.BabysitterEndTime > rate.rateStartTime &&
-			        babySitterContract.BabysitterEndTime <= rate.rateEndTime);
+					babySitterContract.BabysitterEndTime <= rate.rateEndTime);
 		}
 
 		private decimal CalculatePaymentIfBabysitterWorksDuringOnlyOneRate(Invoice invoice, BabySitterContract babySitterContract, Rate rate)
 		{
-				invoice.totalPayment = rate.dollarsPerHour*
-				                       (babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime);
+			invoice.totalPayment = rate.dollarsPerHour *
+								   (babySitterContract.BabysitterEndTime - babySitterContract.BabysitterStartTime);
 			return invoice.totalPayment;
 		}
-
-		private bool DoesBabysitterWorkDuringOnlyOneRate(BabySitterContract babySitterContract, Rate rate)
-		{
-			return DetermineIfBabysitterStartTimeIsInRateBlock(babySitterContract, rate) &&
-			       DetermineIfBabysitterEndTimeIsInRateBlock(babySitterContract, rate);
-		}
-
 	}
 }
