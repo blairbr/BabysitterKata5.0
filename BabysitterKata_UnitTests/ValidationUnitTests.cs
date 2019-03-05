@@ -58,49 +58,41 @@ namespace BabysitterKata_UnitTests
 		[Test]
 		public void CheckThatBabysitterStartsAtFivePmOrLater()
 		{
-			//Arrange
-			bool expectedValue = true;
 			//Act
 			bool result = validationService.BabysitterStartTimeIsFivePmOrLater((int)Time.SixPm);
 			//Assert
-			Assert.AreEqual(expectedValue, result);
+			Assert.IsTrue(result);
 		}
 
 		[Test]
 		public void CheckThatBabysitterShiftEndsAtFourAmOrEarlier()
 		{
-			//Arrange
-			bool expectedValue = true;
 			//Act
 			bool result = validationService.BabysitterEndTimeIsFourAmOrEarlier((int)Time.FourAm);
 			//Assert
-			Assert.AreEqual(expectedValue, result);
+			Assert.IsTrue(result);
 		}
 
 		[Test]
 		public void CheckThatTestReturnsFalseIfBabysitterShiftEndsAfterFourAm()
 		{
-			//Arrange
-			bool expectedValue = false;
 			//Act
 			bool result = validationService.BabysitterEndTimeIsFourAmOrEarlier((int)Time.FiveAm);
 			//Assert
-			Assert.AreEqual(expectedValue, result);
-		}  //this should throw an exception
+			Assert.IsFalse(result);
+		}
 
 		[Test]
 		public void CheckThatBabysitterStartTimeIsBeforeBabysitterEndTime()
 		{
-			//Arrange
-			bool expectedValue = true;
 			//Act
 			bool result = validationService.BabysitterStartTimeIsBeforeBabysitterEndTime((int)Time.SevenPm, (int)Time.OneAm);
 			//Assert
-			Assert.AreEqual(expectedValue, result);
+			Assert.IsTrue(result);
 		}
 
 		[Test]
-		public void CheckThatAnErrorMessageIsReturnedIfValidateUserInputParametersAreNotValid()
+		public void CheckThatValidationReturnsFalseIfValidateUserInputParametersAreNotValid()
 		{
 			//arrange with out of range variables
 			babySitterContract.BabysitterStartTime = (int)Time.ThreePm;
@@ -114,7 +106,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckThatAnErrorMessageIsReturnedIfBabysitterStartTimeAfterBabysitterEndTime()
+		public void CheckThatValidationReturnsFalseIfBabysitterStartTimeAfterBabysitterEndTime()
 		{
 			//arrange with out of range variables
 			babySitterContract.BabysitterStartTime = (int)Time.ThreePm;
@@ -128,7 +120,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckThatAnErrorMessageIsReturnedIfBabysitterStartTimeBefore5pm()
+		public void CheckThatValidationReturnsFalseIfBabysitterStartTimeBefore5pm()
 		{
 			//arrange with out of range variables
 			babySitterContract.BabysitterStartTime = (int)Time.TwoPm;
@@ -142,7 +134,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckThatAnErrorMessageIsReturnedIfBabysitterEndTimeAfter4am()
+		public void CheckThatValidationReturnsFalseIfBabysitterEndTimeAfter4am()
 		{
 			//arrange with out of range variables
 			babySitterContract.BabysitterStartTime = (int)Time.SixPm;
@@ -156,7 +148,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckBabysitterWorksForFamily_C_From5pmTo9pmAndInvoiceContainsValidationSuccessMessage()
+		public void CheckBabysitterWorksForFamily_C_From5pmTo9pmAndInvoiceValidationResponseIsTrue()
 		{
 			//Arrange
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
@@ -170,7 +162,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckBabysitterWorksForFamily_B_From5pmTo4amAndInvoiceContainsValidationSuccessMessage()
+		public void CheckBabysitterWorksForFamily_B_From5pmTo4amAndInvoiceValidationResponseIsTrue()
 		{
 			//Arrange
 			babySitterContract.BabysitterStartTime = (int)Time.FivePm;
@@ -185,7 +177,7 @@ namespace BabysitterKata_UnitTests
 		}
 
 		[Test]
-		public void CheckBabysitterWorksForFamily_A_From7pmToMidnightAndInvoiceContainsValidationSuccessMessage()
+		public void CheckBabysitterWorksForFamily_A_From7pmToMidnightAndInvoiceValidationResponseIsTrue()
 		{
 			//Arrange
 			babySitterContract.BabysitterStartTime = (int)Time.SevenPm;

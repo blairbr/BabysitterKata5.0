@@ -32,12 +32,10 @@ namespace BabysitterKata5._0
 			{
 				// Set up variables
 				decimal hoursWorkedAtCurrentRate;
-				bool babySitterStartTimeisInRateBlock;
-				bool babySitterEndTimeisInRateBlock;
 				decimal ratePayment = decimal.Zero;
 
-				babySitterStartTimeisInRateBlock = DetermineIfBabysitterStartTimeIsInRateBlock(babySitterContract, rate);
-				babySitterEndTimeisInRateBlock = DetermineIfBabysitterEndTimeIsInRateBlock(babySitterContract, rate);
+				bool babySitterStartTimeisInRateBlock = DetermineIfBabysitterStartTimeIsInRateBlock(babySitterContract, rate);
+				bool babySitterEndTimeisInRateBlock = DetermineIfBabysitterEndTimeIsInRateBlock(babySitterContract, rate);
 
 				//if the start and end time are both in a single rate block, update payment and return the invoice
 				if (babySitterStartTimeisInRateBlock && babySitterEndTimeisInRateBlock)
@@ -76,7 +74,7 @@ namespace BabysitterKata5._0
 		{
 			Invoice invoice = new Invoice()
 			{
-				totalPayment = 0,
+				totalPayment = decimal.Zero,
 				response = validation.ValidateUserInput(babySitterContract)
 			};
 			return invoice;
