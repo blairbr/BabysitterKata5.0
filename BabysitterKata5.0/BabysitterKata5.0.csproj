@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BabySitterContract.cs" />
-    <Compile Include="Enumerations\InvoiceValidation.cs" />
+    <Compile Include="Enumerations\InvoiceValidationResponse.cs" />
     <Compile Include="Enumerations\Time.cs" />
     <Compile Include="Interfaces\IBabySitterValidation.cs" />
     <Compile Include="Invoice.cs" />

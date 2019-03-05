@@ -16,6 +16,7 @@ namespace BabysitterKata5._0
 			                       && startAndEndAreInChronologicalOrder 
 			                       && allRateStartTimesAreBeforeRateEndTimes;
 		}
+
 		public bool BabysitterStartTimeIsFivePmOrLater(int babysitterStartTime)
 		{
 			return babysitterStartTime >= (int)Time.FivePm;
